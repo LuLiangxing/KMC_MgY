@@ -1,0 +1,21 @@
+CC=g++
+#CPPFLAGS = -O2 -larmadillo -fopenmp
+CPPH = -I ../../include
+
+OBJ_MGY = mgy_generate_neighbour.o mgy_generate_nearest_neighbour.o mgy_generate_structure.o mgy_set_parameter.o mgy_initiallization.o pick_randi.o print_vector.o
+OBJ_EAM = eam_main.o eam_interp1.o eam_interp_at_nbs.o eam_read_raw_data.o eam_initiallization.o eam_system_energy.o eam_listing_exchange.o eam_energy_difference.o eam_seaching_saddle.o eam_DoExchange.o
+OBJ_ALL = $(OBJ_EAM) $(OBJ_MGY)
+
+vpath mgy_% ../mgy
+vpath print_% ../mgy
+vpath pick_% ../mgy
+
+EAM_TEST: $(OBJ_ALL)
+	$(CC) $(OBJ_ALL) -o $@ $(CPPFLAGS)
+	
+$(OBJ_ALL): %.o: %.cpp
+	$(CC) $(CPPH) -c $< -o $@ $(CPPFLAGS)
+
+.PHONY: clean
+clean:
+	rm -f EAM_TEST *.o

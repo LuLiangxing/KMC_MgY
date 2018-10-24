@@ -1,0 +1,16 @@
+int	Nx	10
+int	Ny	10
+int	Nz	10
+double	lattice_a:(A):	3.2094
+double	lattice_c:(A):	5.2108
+double	rc_cut:(A):	6.5
+double	sallde_hight:(eV):	0.01
+double	vibr_fre:	1.0
+double	yat(at%):	0.03
+int	n_vacancy: 1
+double Temperature 500.
+double kb(eV/K) 8.6173303e-5
+int	max_steps	200
+int	save_per_nsteps	100
+int	nthreads	40
+sring	saveDir	../../bin/results/

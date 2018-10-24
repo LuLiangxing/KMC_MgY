@@ -1,0 +1,15 @@
+CC=g++
+#CPPFLAGS = -O2 -larmadillo -fopenmp
+CPPH = -I ../../include
+
+OBJ_KMC = test_kmc.o kmc_kmc.o
+
+KMC_TEST: $(OBJ_KMC)
+	$(CC) $(OBJ_KMC) -o $@ $(CPPFLAGS)
+	
+$(OBJ_KMC): %.o: %.cpp
+	$(CC) $(CPPH) -c $< -o $@ $(CPPFLAGS)
+
+.PHONY: clean
+clean:
+	rm -f KMC_TEST *.o

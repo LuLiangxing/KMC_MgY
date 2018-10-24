@@ -1,0 +1,27 @@
+CC=g++
+CPPFLAGS = -O2 -fopenmp
+CPPH = -I ../../include
+
+OBJ_MGYKMC = MGYKMC_main.o MGYKMC_Input.o runMGYKMC.o 
+OBJ_MGY = mgy_generate_neighbour.o mgy_generate_nearest_neighbour.o mgy_generate_structure.o mgy_set_parameter.o mgy_initiallization.o pick_randi.o print_vector.o eam_PreparingKMC.o
+OBJ_EAM = eam_interp1.o eam_interp_at_nbs.o eam_read_raw_data.o eam_initiallization.o eam_system_energy.o eam_listing_exchange.o eam_energy_difference.o eam_seaching_saddle.o eam_DoExchange.o
+OBJ_KMC = kmc_kmc.o
+OBJ_ALL = $(OBJ_MGYKMC) $(OBJ_MGY) $(OBJ_EAM) $(OBJ_KMC)
+
+vpath mgy_% ../mgy
+vpath eam_% ../eam
+vpath kmc_% ../kmc
+##vpath MGYKMC_% ../mgykmc
+vpath run% ../mgykmc
+vpath print_% ../mgy
+vpath pick_% ../mgy
+
+MGYKMC_TEST: $(OBJ_ALL)
+	$(CC) $(OBJ_ALL) -o $@ $(CPPFLAGS)
+	
+$(OBJ_ALL): %.o: %.cpp
+	$(CC) $(CPPH) -c $< -o $@ $(CPPFLAGS)
+
+.PHONY: clean
+clean:
+	rm -f MGYKMC_TEST *.o

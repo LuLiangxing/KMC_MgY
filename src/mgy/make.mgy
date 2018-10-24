@@ -1,0 +1,15 @@
+CC=g++
+#CPPFLAGS = -O2 -larmadillo -fopenmp
+CPPH = -I ../../include
+
+OBJ_MGY = mgy_main.o mgy_generate_neighbour.o mgy_generate_nearest_neighbour.o mgy_generate_structure.o mgy_set_parameter.o mgy_initiallization.o pick_randi.o print_vector.o
+
+MGY_TEST: $(OBJ_MGY)
+	$(CC) $(OBJ_MGY) -o $@ $(CPPFLAGS)
+	
+$(OBJ_MGY): %.o: %.cpp
+	$(CC) $(CPPH) -c $< -o $@ $(CPPFLAGS)
+
+.PHONY: clean
+clean:
+	rm -f MGY_TEST *.o
